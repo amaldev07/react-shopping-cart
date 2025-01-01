@@ -1,15 +1,31 @@
 import React, { useState, useEffect } from 'react';
+import Loader from '../components/Loader';
+
 
 const HomePage = () => {
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
 
     // Fetch products from API
     useEffect(() => {
+        setLoading(true);
         fetch('https://fakestoreapi.com/products') // Example API
             .then((response) => response.json())
-            .then((data) => setProducts(data))
-            .catch((error) => console.error('Error fetching products:', error));
+            .then((data) => {
+                setProducts(data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error('Error fetching products:', error);
+                setLoading(false);
+            });
     }, []);
+
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <div className="grid grid-cols-4 gap-4 p-4">
