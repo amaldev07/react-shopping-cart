@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Loader from '../components/Loader';
+import { Link } from 'react-router-dom';
 
 
 const HomePage = () => {
@@ -30,7 +31,10 @@ const HomePage = () => {
     return (
         <div className="grid grid-cols-4 gap-4 p-4">
             {products.map((product) => (
-                <div key={product.id} className="p-4 border rounded shadow">
+                <Link
+                    to={`/product/${product.id}`}
+                    key={product.id}
+                    className="p-4 border rounded shadow hover:shadow-lg">
                     <img
                         src={product.image}
                         alt={product.title}
@@ -41,7 +45,7 @@ const HomePage = () => {
                     <button className="bg-blue-500 text-white px-4 py-2 mt-2 rounded hover:bg-blue-600">
                         Add to Cart
                     </button>
-                </div>
+                </Link>
             ))}
         </div>
     );
